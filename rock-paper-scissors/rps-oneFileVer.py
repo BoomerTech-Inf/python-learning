@@ -1,8 +1,38 @@
 from random import choice
-from computer import Computer, Result
+
+
+class Result:
+
+    def __init__(self, computer, player):
+        self.computer = computer
+        self.player = player
+
+    def score_result(self):
+        if self.player > self.computer:
+            return "Nice, you beat this stupid machine up!"
+        elif self.player == self.computer:
+            return "You're as dumb as this machine"
+        else:
+            return "Computer beat you up! You suck!"
 
 
 def game():
+
+    rock = {
+        "rock": "Draw",
+        "paper": "You won",
+        "scissors": "You lose"
+    }
+    paper = {
+        "rock": "You lose",
+        "paper": "Draw",
+        "scissors": "You won"
+    }
+    scissors = {
+        "rock": "You won",
+        "paper": "You lose",
+        "scissors": "Draw"
+    }
 
     player_score = 0
     computer_score = 0
@@ -19,19 +49,14 @@ def game():
                 print("It ain't The Big Bang Theory")
             else:
                 print("I'm stupid and I don't understand what you are talking to me")
-            my_choice = str(input("Select right option: ")).lower()
-
-        computer = Computer(my_choice)
-        rock = computer.rock()
-        paper = computer.paper()
-        scissors = computer.scissors()
+            my_choice = str(input("Select the right option: ")).lower()
 
         comp = choice([rock, paper, scissors])
 
-        result = comp
-        if result == "you won":
+        result = comp[my_choice]
+        if comp[my_choice] == "You won":
             player_score += 2
-        elif result == "draw":
+        elif comp[my_choice] == "Draw":
             player_score += 1
             computer_score += 1
         else:
@@ -43,7 +68,7 @@ def game():
         dec = str(input("Wanna play again? (yes/no): ")).lower()
         while dec not in available_dec:
             print("I'm stupid and I don't understand what you are talking to me")
-            dec = str(input("Select right option: ")).lower()
+            dec = str(input("Select the right option: ")).lower()
 
         if dec == "no":
             print(final_result.score_result())
